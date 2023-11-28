@@ -1,0 +1,9 @@
+package ee.tarvi.quizgameapp.repositories;
+
+import ee.tarvi.quizgameapp.entity.Player;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+
+public interface PlayerRepository extends JpaRepository<Player, Long> {
+
+}
