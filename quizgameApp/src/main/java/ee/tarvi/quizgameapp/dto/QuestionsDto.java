@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import lombok.extern.java.Log;
+import lombok.extern.log4j.Log4j2;
+import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.HtmlUtils;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -21,10 +23,14 @@ public class QuestionsDto {
     private List<QuestionDto> results;
 
 
+
+
+
+    @Component
     @NoArgsConstructor
     @Getter
     @ToString
-    @Log
+    @Log4j2
     public static class QuestionDto {
         private String category;
         private String type;
@@ -34,6 +40,8 @@ public class QuestionsDto {
         private String correctAnswer;
         @JsonProperty("incorrect_answers")
         private List<String> incorrectAnswers;
+
+        private String userAnswer;
 
         public void setQuestion(String question) {
             this.question = HtmlUtils.htmlUnescape(question);
@@ -51,7 +59,12 @@ public class QuestionsDto {
         }
 
 
-        public void getQuizQuestions() {
+        public void setUserAnswer(String userAnswer) {
+            this.userAnswer = HtmlUtils.htmlUnescape(userAnswer);
+        }
+
+
+        public static void getQuizQuestions() {
             RestTemplate restTemplate = new RestTemplate();
 
             URI uri = UriComponentsBuilder.fromHttpUrl("https://opentdb.com/api.php")

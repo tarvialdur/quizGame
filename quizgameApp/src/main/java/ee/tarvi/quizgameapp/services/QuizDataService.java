@@ -6,17 +6,16 @@ import ee.tarvi.quizgameapp.dto.CategoryQuestionCountInfoDto;
 import ee.tarvi.quizgameapp.dto.QuestionsDto;
 import ee.tarvi.quizgameapp.frontend.Difficulty;
 import ee.tarvi.quizgameapp.frontend.GameOptions;
-import lombok.extern.java.Log;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
-import java.util.Collection;
 import java.util.List;
 
 @Service
-@Log
+@Log4j2
 public class QuizDataService {
 
     public List<CategoriesDto.CategoryDto> getQuizCategories() {
@@ -37,6 +36,7 @@ public class QuizDataService {
         }
     }
 
+    //Overloading - getQuizQuestions()
     private List<QuestionsDto.QuestionDto> getQuizQuestions(int numberOfQuestions, int categoryId, Difficulty difficulty) {
         RestTemplate restTemplate = new RestTemplate();
 
@@ -64,6 +64,4 @@ public class QuizDataService {
         log.info("Quiz category question count content: " + result);
         return result;
     }
-
-
 }

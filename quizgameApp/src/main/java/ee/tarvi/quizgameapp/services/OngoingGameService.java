@@ -1,10 +1,12 @@
 package ee.tarvi.quizgameapp.services;
 
+import ee.tarvi.quizgameapp.dto.AnsweredQuestion;
+import ee.tarvi.quizgameapp.dto.CategoriesDto;
 import ee.tarvi.quizgameapp.dto.QuestionsDto;
 import ee.tarvi.quizgameapp.frontend.Difficulty;
 import ee.tarvi.quizgameapp.frontend.GameOptions;
 import lombok.Getter;
-import lombok.extern.java.Log;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.annotation.SessionScope;
@@ -17,7 +19,7 @@ import java.util.Optional;
 
 @Service
 @SessionScope
-@Log
+@Log4j2
 public class OngoingGameService {
     private GameOptions gameOptions;
     private int currentQuestionIndex;
@@ -28,6 +30,14 @@ public class OngoingGameService {
 
     @Autowired
     private QuizDataService quizDataService;
+
+
+    private final List<AnsweredQuestion> answeredQuestions = new ArrayList<>();
+
+    public List<AnsweredQuestion> getAnsweredQuestions() {
+        return answeredQuestions;
+    }
+
 
     public void init(GameOptions gameOptions) {
         this.gameOptions = gameOptions;
@@ -61,14 +71,25 @@ public class OngoingGameService {
         return answers;
     }
 
-    public boolean checkAnswerForCurrentQuestionAndUpdatePoints(String userAnswer) {
+    public void checkAnswerForCurrentQuestionAndUpdatePoints(String userAnswer) {
+
         QuestionsDto.QuestionDto dto = questions.get(currentQuestionIndex);
         boolean correct = dto.getCorrectAnswer().equals(userAnswer);
         if (correct) {
             points++;
         }
-        return correct;
+        AnsweredQuestion answeredQuestion = new AnsweredQuestion(dto, userAnswer, correct);
+        answeredQuestions.add(answeredQuestion);
+
     }
+
+    public void resetGame() {
+        this.currentQuestionIndex = 0;
+        this.points = 0;
+        this.answeredQuestions.clear(); // Clear the list of answered questions
+        this.questions = quizDataService.getQuizQuestions(gameOptions);
+    }
+
 
     public boolean proceedToNextQuestion() {
         currentQuestionIndex++;
@@ -83,8 +104,11 @@ public class OngoingGameService {
     public String getCategoryName() {
         Optional<String> category = quizDataService.getQuizCategories().stream()
                 .filter(categoryDto -> categoryDto.getId() == gameOptions.getCategoryId())
-                .map(categoryDto -> categoryDto.getName())
+                .map(CategoriesDto.CategoryDto::getName)
                 .findAny();
         return category.orElse(null);
     }
+
+
+
 }
