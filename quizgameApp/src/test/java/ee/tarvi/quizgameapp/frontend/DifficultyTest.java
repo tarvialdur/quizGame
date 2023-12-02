@@ -16,65 +16,80 @@ class DifficultyTest {
         Difficulty result = calculateNextDifficulty(givenDifficulty);
         assertEquals(MEDIUM, result);
     }
-
     @Test
     void calculateNextDifficultyNULL() {
         EnumSet<Difficulty> givenDifficulty = null;
         Difficulty result = calculateNextDifficulty(givenDifficulty);
         assertNull(result);
     }
-
     @Test
     void calculateNextDifficultyNONE() {
         EnumSet<Difficulty> givenDifficulty = EnumSet.noneOf(Difficulty.class);
         Difficulty result = calculateNextDifficulty(givenDifficulty);
         assertNull(result);
     }
-
     @Test
     void calculcateNextDifficultyEASY() {
         EnumSet<Difficulty> givenDifficulty = EnumSet.of(EASY);
         Difficulty result = calculateNextDifficulty(givenDifficulty);
         assertEquals(MEDIUM, result);
      }
-
     @Test
     void calculateNextDifficultyEASY_MEDIUM() {
         EnumSet<Difficulty> given = EnumSet.of(EASY, MEDIUM);
         Difficulty result = calculateNextDifficulty(given);
         assertEquals(HARD, result);
     }
-
     @Test
     void calculateNextDifficultyMEDIUM() {
         EnumSet<Difficulty> givenDifficulty = EnumSet.of(MEDIUM);
         Difficulty result = calculateNextDifficulty(givenDifficulty);
         assertEquals(HARD, result);
     }
-
     @Test
     void calculateNextDifficultyMEDIUM_HARD() {
         EnumSet<Difficulty> given = EnumSet.of(MEDIUM, HARD);
         Difficulty result = calculateNextDifficulty(given);
         assertEquals(EASY, result);
     }
-
     @Test
     void calculateNextDifficultyHARD() {
         EnumSet<Difficulty> given = EnumSet.of(HARD);
         Difficulty result = calculateNextDifficulty(given);
         assertEquals(MEDIUM, result);
     }
-
     @Test
     void calculateNextDifficultyHARD_EASY() {
         EnumSet<Difficulty> given = EnumSet.of(HARD, EASY);
         Difficulty result = calculateNextDifficulty(given);
         assertEquals(MEDIUM, result);
     }
-
     @Test
-    void calculateNextDifficultyALL() {
+    void calculateNextDifficulty_hard() {
+        EnumSet<Difficulty> given = EnumSet.of(HARD);
+        Difficulty result = calculateNextDifficulty(given);
+        assertEquals(MEDIUM, result);
+    }
+    @Test
+    void calculateNextDifficulty_easy_medium() {
+        EnumSet<Difficulty> given = EnumSet.of(EASY, MEDIUM);
+        Difficulty result = calculateNextDifficulty(given);
+        assertEquals(HARD, result);
+    }
+    @Test
+    void calculateNextDifficulty_medium_hard() {
+        EnumSet<Difficulty> given = EnumSet.of(MEDIUM, HARD);
+        Difficulty result = calculateNextDifficulty(given);
+        assertEquals(EASY, result);
+    }
+    @Test
+    void calculateNextDifficulty_hard_easy() {
+        EnumSet<Difficulty> given = EnumSet.of(HARD, EASY);
+        Difficulty result = calculateNextDifficulty(given);
+        assertEquals(MEDIUM, result);
+    }
+    @Test
+    void calculateNextDifficulty_all() {
         EnumSet<Difficulty> given = EnumSet.of(EASY, MEDIUM, HARD);
         Difficulty result = calculateNextDifficulty(given);
         assertNull(result);
