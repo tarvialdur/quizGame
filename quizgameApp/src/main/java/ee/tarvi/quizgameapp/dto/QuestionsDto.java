@@ -44,12 +44,13 @@ public class QuestionsDto {
         private String userAnswer;
 
         public void setQuestion(String question) {
-            this.question = HtmlUtils.htmlUnescape(question);
+            this.question = HtmlUtils.htmlUnescape(question);  //fixes the spelling in got questions
         }
 
         public void setCorrectAnswer(String correctAnswer) {
             this.correctAnswer = HtmlUtils.htmlUnescape(correctAnswer);
         }
+        
 
         public void setIncorrectAnswers(List<String> incorrectAnswers) {
             List<String> newIncorrectAnswers = incorrectAnswers.stream()
@@ -60,7 +61,7 @@ public class QuestionsDto {
 
 
         public void setUserAnswer(String userAnswer) {
-            this.userAnswer = HtmlUtils.htmlUnescape(userAnswer);
+            this.userAnswer = HtmlUtils.htmlUnescape(userAnswer); // fixes the spelling in the user answer
         }
 
 
