@@ -18,9 +18,11 @@ import java.util.List;
 @Log4j2
 public class QuizDataService {
 
+    //get quiz categories from open trivia db
     public List<CategoriesDto.CategoryDto> getQuizCategories() {
         RestTemplate restTemplate = new RestTemplate();
         CategoriesDto result = restTemplate.getForObject("https://opentdb.com/api_category.php", CategoriesDto.class);
+        assert result != null;
         log.info("Quiz categories: " + result.getCategories());
         return result.getCategories();
     }
@@ -36,7 +38,8 @@ public class QuizDataService {
         }
     }
 
-    //Overloading - getQuizQuestions()
+    //Overloading getQuizQuestions()
+    //
     private List<QuestionsDto.QuestionDto> getQuizQuestions(int numberOfQuestions, int categoryId, Difficulty difficulty) {
         RestTemplate restTemplate = new RestTemplate();
 
@@ -45,13 +48,12 @@ public class QuizDataService {
                 .queryParam("category", categoryId)
                 .queryParam("difficulty", difficulty.name().toLowerCase())
                 .build().toUri();
-        log.info("Quiz question retrieve URL: " + uri);
+        log.info("Quiz questions retrieved: " + uri);
 
         QuestionsDto result = restTemplate.getForObject(uri, QuestionsDto.class);
-        log.info("Quiz questions: Open Trivia DB response code = " + result.getResponseCode() + ". Content: " + result.getResults());
+        assert result != null;
         return result.getResults();
     }
-
 
     private CategoryQuestionCountInfoDto getCategoryQuestionCount(int categoryId) {
         RestTemplate restTemplate = new RestTemplate();
@@ -59,9 +61,7 @@ public class QuizDataService {
         URI uri = UriComponentsBuilder.fromHttpUrl("https://opentdb.com/api_count.php")
                 .queryParam("category", categoryId)
                 .build().toUri();
-        log.info("Quiz category question count retrieve URL: " + uri);
         CategoryQuestionCountInfoDto result = restTemplate.getForObject(uri, CategoryQuestionCountInfoDto.class);
-        log.info("Quiz category question count content: " + result);
         return result;
     }
 }

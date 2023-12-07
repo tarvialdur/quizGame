@@ -35,8 +35,6 @@ public enum Difficulty {
             return missingDifficulties.iterator().next();
         }
     }
-
-
 }
 
 

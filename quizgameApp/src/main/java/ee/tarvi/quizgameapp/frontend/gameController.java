@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 @Log4j2
-public class FrontendController {
+public class gameController {
 
     @Autowired
     private QuizDataService quizDataService;
@@ -21,16 +21,8 @@ public class FrontendController {
     @Autowired
     private OngoingGameService ongoingGameService;
 
-
-
     @Autowired
     QuestionsDto.QuestionDto questionDto;
-
-    @GetMapping("/")
-    public String hello(Model model){
-        model.addAttribute("message", "some message");
-        return "index";
-    }
 
     @GetMapping("/select")
     public String select(Model model) {
@@ -42,8 +34,8 @@ public class FrontendController {
 
     @PostMapping("/select")
     public String postSelectForm(@ModelAttribute GameOptions gameOptions) {
-        log.info("Form submitted with data: " + gameOptions);
-        ongoingGameService.init(gameOptions);
+        log.info("New game submitted with data: " + gameOptions);
+        ongoingGameService.initialize(gameOptions);
         return "redirect:game";
     }
 
@@ -57,7 +49,7 @@ public class FrontendController {
         return "game";
     }
 
-    @PostMapping("/game")  // check if the user has given the right answer and move on to the next question. if no more questons are present, move to the homepage
+    @PostMapping("/game")  // check if the user has given the right answer and move on to the next question. if no more questons are present, proceed to summarty
     public String postSelectForm(@ModelAttribute UserAnswer userAnswer) {
         ongoingGameService.checkAnswerForCurrentQuestionAndUpdatePoints(userAnswer.getAnswer());
         boolean hasNextQuestion = ongoingGameService.proceedToNextQuestion();

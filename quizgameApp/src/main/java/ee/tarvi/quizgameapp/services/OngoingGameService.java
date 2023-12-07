@@ -5,6 +5,7 @@ import ee.tarvi.quizgameapp.dto.CategoriesDto;
 import ee.tarvi.quizgameapp.dto.QuestionsDto;
 import ee.tarvi.quizgameapp.frontend.Difficulty;
 import ee.tarvi.quizgameapp.frontend.GameOptions;
+import lombok.Data;
 import lombok.Getter;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,15 +32,10 @@ public class OngoingGameService {
     @Autowired
     private QuizDataService quizDataService;
 
-
+    @Getter
     private final List<AnsweredQuestion> answeredQuestions = new ArrayList<>();
 
-    public List<AnsweredQuestion> getAnsweredQuestions() {
-        return answeredQuestions;
-    }
-
-
-    public void init(GameOptions gameOptions) {
+    public void initialize(GameOptions gameOptions) {
         this.gameOptions = gameOptions;
         this.currentQuestionIndex = 0;
         this.points = 0;
@@ -80,7 +76,6 @@ public class OngoingGameService {
         }
         AnsweredQuestion answeredQuestion = new AnsweredQuestion(dto, userAnswer, correct);
         answeredQuestions.add(answeredQuestion);
-
     }
 
     public void resetGame() {
@@ -90,12 +85,10 @@ public class OngoingGameService {
         this.questions = quizDataService.getQuizQuestions(gameOptions);
     }
 
-
     public boolean proceedToNextQuestion() {
         currentQuestionIndex++;
         return currentQuestionIndex < questions.size();
     }
-
 
     public Difficulty getDifficulty() {
         return gameOptions.getDifficulty();
@@ -108,7 +101,5 @@ public class OngoingGameService {
                 .findAny();
         return category.orElse(null);
     }
-
-
 
 }

@@ -1,6 +1,7 @@
 package ee.tarvi.quizgameapp.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
@@ -23,11 +24,9 @@ public class QuestionsDto {
     private List<QuestionDto> results;
 
 
-
-
-
     @Component
     @NoArgsConstructor
+    @AllArgsConstructor
     @Getter
     @ToString
     @Log4j2
@@ -44,13 +43,13 @@ public class QuestionsDto {
         private String userAnswer;
 
         public void setQuestion(String question) {
-            this.question = HtmlUtils.htmlUnescape(question);  //fixes the spelling in got questions
+            this.question = HtmlUtils.htmlUnescape(question);  //fixes the spelling in given questions to player.
         }
 
         public void setCorrectAnswer(String correctAnswer) {
             this.correctAnswer = HtmlUtils.htmlUnescape(correctAnswer);
         }
-        
+
 
         public void setIncorrectAnswers(List<String> incorrectAnswers) {
             List<String> newIncorrectAnswers = incorrectAnswers.stream()

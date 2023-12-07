@@ -13,18 +13,16 @@ import java.util.List;
 
 @Component
 @Log4j2
-public class StartupRunner implements CommandLineRunner {
+public class StartupRunner implements CommandLineRunner { // implements CommandLineRunner interface and and run() will be invoked after Spring boot app is invoked and starts handling incoming requests,
 
     @Autowired
     private PlayerRepository playerRepository;
-
     @Autowired
     private QuizDataService quizDataService;
 
-
     @Override
     public void run(String...args) {
-        log.info("---> Excecuting startup actions...");
+        log.info("---> Startup  actions...");
 
         playerRepository.save(new Player("Tarvi"));
 
@@ -34,7 +32,6 @@ public class StartupRunner implements CommandLineRunner {
             log.info("--->Retrieved player: " + player);
         }
         quizDataService.getQuizCategories();
-        //quizDataService.getQuizQuestions();
 
     }
 
