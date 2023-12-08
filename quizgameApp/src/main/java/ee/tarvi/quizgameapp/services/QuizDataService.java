@@ -27,7 +27,7 @@ public class QuizDataService {
         return result.getCategories();
     }
 
-
+    // gives quiz questions on specified options
     public List<QuestionsDto.QuestionDto> getQuizQuestions(GameOptions gameOptions) {
         CategoryQuestionCountInfoDto categoryQuestionCount = getCategoryQuestionCount(gameOptions.getCategoryId());
         int availableQuestionCount = categoryQuestionCount.getQuestionCountForDifficulty(gameOptions.getDifficulty());
@@ -38,6 +38,8 @@ public class QuizDataService {
         }
     }
 
+
+    //retrieves questions with question number, specified category and choosen difficulty
     //Overloading
     //
     private List<QuestionsDto.QuestionDto> getQuizQuestions(int numberOfQuestions, int categoryId, Difficulty difficulty) {
@@ -55,6 +57,8 @@ public class QuizDataService {
         return result.getResults();
     }
 
+
+    //info about questions count for choosen category
     private CategoryQuestionCountInfoDto getCategoryQuestionCount(int categoryId) {
         RestTemplate restTemplate = new RestTemplate();
 
