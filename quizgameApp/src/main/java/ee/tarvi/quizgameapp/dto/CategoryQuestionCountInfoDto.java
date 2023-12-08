@@ -16,7 +16,7 @@ public class CategoryQuestionCountInfoDto {
     @JsonProperty("category_question_count")
     private CategoryQuestionCountDto categoryQuestionCount;
 
-    
+
     public int getTotalQuestionCount() {
         return categoryQuestionCount.totalQuestionCount;
     }

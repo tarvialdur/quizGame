@@ -38,7 +38,7 @@ public class QuizDataService {
         }
     }
 
-    //Overloading getQuizQuestions()
+    //Overloading
     //
     private List<QuestionsDto.QuestionDto> getQuizQuestions(int numberOfQuestions, int categoryId, Difficulty difficulty) {
         RestTemplate restTemplate = new RestTemplate();

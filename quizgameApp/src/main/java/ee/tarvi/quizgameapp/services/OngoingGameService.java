@@ -5,7 +5,6 @@ import ee.tarvi.quizgameapp.dto.CategoriesDto;
 import ee.tarvi.quizgameapp.dto.QuestionsDto;
 import ee.tarvi.quizgameapp.frontend.Difficulty;
 import ee.tarvi.quizgameapp.frontend.GameOptions;
-import lombok.Data;
 import lombok.Getter;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;

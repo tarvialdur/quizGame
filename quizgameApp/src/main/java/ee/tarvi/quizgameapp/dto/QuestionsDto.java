@@ -73,7 +73,7 @@ public class QuestionsDto {
                     .queryParam("difficulty", "medium")
                     .build()
                     .toUri();
-            log.info(("Quiz questions retrieve URL: " + uri));
+            log.info(("Quiz questions: " + uri));
 
             QuestionsDto result = restTemplate.getForObject(uri, QuestionsDto.class);
             assert result != null;
