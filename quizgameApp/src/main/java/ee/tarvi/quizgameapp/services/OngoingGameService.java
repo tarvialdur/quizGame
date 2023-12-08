@@ -9,7 +9,6 @@ import lombok.Getter;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.context.annotation.SessionScope;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -18,7 +17,6 @@ import java.util.Optional;
 
 
 @Service
-@SessionScope
 @Log4j2
 public class OngoingGameService {
     private GameOptions gameOptions;
@@ -79,7 +77,7 @@ public class OngoingGameService {
     public void resetGame() {
         this.currentQuestionIndex = 0;
         this.points = 0;
-        this.answeredQuestions.clear(); // Clear the list of answered questions
+        this.answeredQuestions.clear(); // Clear the list of answered questions in summary section
         this.questions = quizDataService.getQuizQuestions(gameOptions);
     }
 

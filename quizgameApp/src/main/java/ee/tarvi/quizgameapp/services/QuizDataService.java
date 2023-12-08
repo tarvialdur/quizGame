@@ -48,7 +48,7 @@ public class QuizDataService {
                 .queryParam("category", categoryId)
                 .queryParam("difficulty", difficulty.name().toLowerCase())
                 .build().toUri();
-        log.info("Quiz questions retrieved: " + uri);
+        log.info("Quiz questions: " + uri);
 
         QuestionsDto result = restTemplate.getForObject(uri, QuestionsDto.class);
         assert result != null;

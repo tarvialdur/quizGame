@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 @Log4j2
-public class gameController {
+public class GameController {
 
     @Autowired
     private QuizDataService quizDataService;

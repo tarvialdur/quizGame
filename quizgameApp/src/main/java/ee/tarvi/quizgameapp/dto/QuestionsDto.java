@@ -19,10 +19,7 @@ import java.util.stream.Collectors;
 @NoArgsConstructor
 @Getter
 public class QuestionsDto {
-    @JsonProperty("response_code")
-    private int responseCode;
     private List<QuestionDto> results;
-
 
     @Component
     @NoArgsConstructor
