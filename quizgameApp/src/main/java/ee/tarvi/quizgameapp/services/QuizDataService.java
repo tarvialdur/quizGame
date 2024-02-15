@@ -39,7 +39,7 @@ public class QuizDataService {
     }
 
 
-    //retrieves questions with question number, specified category and choosen difficulty
+    //retrieves questions with question number, specified category and chosen difficulty
     //Overloading
     //
     private List<QuestionsDto.QuestionDto> getQuizQuestions(int numberOfQuestions, int categoryId, Difficulty difficulty) {
@@ -56,6 +56,7 @@ public class QuizDataService {
         assert result != null;
         return result.getResults();
     }
+
 
 
     //info about questions count for choosen category
